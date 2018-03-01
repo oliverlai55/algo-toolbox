@@ -18,7 +18,15 @@ function readLine (line) {
     lineNo++;
   } else {
     nums = line.split(' ').map(num => parseInt(num));
-    console.log(maxPairwiseProduct(nums));
+    console.log(maxPairwiseProductFast(nums));
     process.exit();
   }
+}
+
+function maxPairwiseProductFast (nums) {
+  nums.sort((a, b) => {
+    return b - a;
+  });
+
+  return nums[0] * nums[1];
 }
