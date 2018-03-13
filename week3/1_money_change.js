@@ -10,11 +10,10 @@ rl.on('line', readLine);
 
 function readLine(line) {
 	if (line !== '\n') {
-		var a = parseInt(line.toString().split(' ')[0], 10);
-		console.log();
+		var num = parseInt(line.toString().split(' ')[0], 10);
+		console.log(moneyChange(num));
 		process.exit();
 	}
 }
 
 function moneyChange(num) {}
-
