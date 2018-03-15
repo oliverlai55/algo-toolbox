@@ -16,4 +16,16 @@ function readLine(line) {
 	}
 }
 
-function moneyChange(num) {}
+function moneyChange(num) {
+	let counter = 0;
+	let amountOfCoin;
+	let denomination = [10, 5, 1];
+
+	for (let i = 0; i < denomination.length; i++) {
+		amountOfCoin = Math.floor(num / denomination[i]);
+		counter += amountOfCoin;
+		num -= denomination[i] * amountOfCoin;
+	}
+
+	return counter;
+}
