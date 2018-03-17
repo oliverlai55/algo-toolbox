@@ -39,6 +39,7 @@ function maxValueLoot(bagWeightCapacity, items) {
 		let currentItemValue = parseInt(currentItem[0]);
 		let currentItemWeight = parseInt(currentItem[1]);
 
+		// if the current weight of the item is lower than bag capacity, then take the whole item. Otherwise, take a fraction of the item to fit in the bag.
 		if (currentItemWeight < bagWeightCapacity) {
 			finalValue += currentItemValue;
 			bagWeightCapacity -= currentItemWeight;
