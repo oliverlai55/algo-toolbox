@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "jest": "^22.4.3"
+  },
+  "name": "algo-toolbox",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:oliverlai55/algo-toolbox.git",
+  "author": "Oliver Lai <oliverlai55@gmail.com>",
+  "license": "MIT",
+
+  "scripts": {
+    "test": "jest"
+  }
+}
