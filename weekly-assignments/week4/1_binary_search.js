@@ -10,21 +10,53 @@ rl.on('line', readLine);
 
 let input = [];
 
-// First line 5 1 5 8 12 13
-// 5 is the length of array, the rest is sorted Array
-// Seond line 5 8 1 23 1 11
-// 5 is also the lenth, the rest are search inputs used to do binarySearch
-// put inputs in array but slice off the first input 
-
 function readLine(line) {
   if (line !== 'n') {
-    line = line.toString().split(' ');
+    line = line.toString().split(' ').map(num => parseInt(num));
     input.push(line);
   }
 
-  if (input.length === 3) {
+  if (input.length === 2) {
+    let arraySize = input[0][0];
+    let sortedArr = input[0].slice(1);
+    let keyArr = input[1].slice(1);
 
+    // let outputs = searchKeyIndex(arraySize, sortedArr, keyArr);
+    // outputs.forEach(output => process.stdout.write(`${output} `));
+    console.log(searchKeyIndex(arraySize, sortedArr, keyArr));
+    process.exit();
   }
 }
 
-module.exports = binarySearch;
+function searchKeyIndex(arraySize, sortedArr, keyArr) {
+  let keyIndexArr = [];
+  let keyIndex;
+  let low = 0;
+  let high = arraySize - 1;
+
+  keyArr.forEach(key => {
+    keyIndex = binarySearch(sortedArr, low, high, key);
+    keyIndexArr.push(parseInt(keyIndex));
+  })
+
+  return keyIndexArr.join(' ');
+}
+
+function binarySearch(sortedArr, low, high, key) {
+  if (key === sortedArr[low]) return low;
+  if (key === sortedArr[high]) return high;
+
+  let mid;
+
+  if (high - low < 0) return - 1;
+  mid = low + Math.floor((high - low) / 2);
+
+  if (key === sortedArr[mid]) return mid;
+  if (key < sortedArr[mid]) return binarySearch(sortedArr, low + 1, mid - 1, key);
+  if (key > sortedArr[mid]) return binarySearch(sortedArr, low + 1, high - 1, key);
+}
+
+module.exports = {
+  binarySearch,
+  searchKeyIndex,
+}
