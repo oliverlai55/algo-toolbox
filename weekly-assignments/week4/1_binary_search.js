@@ -21,9 +21,11 @@ function readLine(line) {
     let sortedArr = input[0].slice(1);
     let keyArr = input[1].slice(1);
 
-    // let outputs = searchKeyIndex(arraySize, sortedArr, keyArr);
-    // outputs.forEach(output => process.stdout.write(`${output} `));
-    console.log(searchKeyIndex(arraySize, sortedArr, keyArr));
+    let outputs = searchKeyIndex(arraySize, sortedArr, keyArr);
+
+    outputs.forEach(output => process.stdout.write(`${output} `));
+    // console.log(searchKeyIndex(arraySize, sortedArr, keyArr));
+    // searchKeyIndex(arraySize, sortedArr, keyArr);
     process.exit();
   }
 }
@@ -39,21 +41,26 @@ function searchKeyIndex(arraySize, sortedArr, keyArr) {
     keyIndexArr.push(parseInt(keyIndex));
   })
 
-  return keyIndexArr.join(' ');
+  // keyArr.forEach(key => {
+  //   keyIndex = binarySearch(sortedArr, low, high, key);
+  //   process.stdout.write(keyIndex + ' ');
+  // })
+
+  return keyIndexArr;
 }
 
 function binarySearch(sortedArr, low, high, key) {
-  if (key === sortedArr[low]) return low;
-  if (key === sortedArr[high]) return high;
+  // if (key === sortedArr[low]) return low;
+  // if (key === sortedArr[high]) return high;
 
   let mid;
 
-  if (high - low < 0) return - 1;
+  if (high - low < 0) return -1;
   mid = low + Math.floor((high - low) / 2);
 
   if (key === sortedArr[mid]) return mid;
-  if (key < sortedArr[mid]) return binarySearch(sortedArr, low + 1, mid - 1, key);
-  if (key > sortedArr[mid]) return binarySearch(sortedArr, low + 1, high - 1, key);
+  if (key < sortedArr[mid]) return binarySearch(sortedArr, low, mid - 1, key);
+  if (key > sortedArr[mid]) return binarySearch(sortedArr, mid + 1, high, key);
 }
 
 module.exports = {

@@ -12,5 +12,7 @@ test('returns the correct index for key in sortedArr', () => {
 test('returns the correct array of indexs based on key array', () => {
   expect(searchKeyIndex(5, [1, 5, 8, 12, 13], [8, 1, 23, 1, 11])).toEqual('2 0 -1 0 -1');
   expect(searchKeyIndex(5, [1, 5, 8, 12, 13], [13, 12, 8, 1, 11])).toEqual('4 3 2 0 -1');
+
+
   expect(searchKeyIndex(10, [2, 3, 4, 5, 6, 7, 8, 9, 10, 11], [1, 2, 3, 4, 5, 6, 7, 8, 9, -1])).toEqual('-1 0 1 2 3 4 5 6 7 8 9 -1');
 })
