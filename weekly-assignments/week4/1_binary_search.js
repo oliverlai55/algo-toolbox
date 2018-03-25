@@ -11,59 +11,62 @@ rl.on('line', readLine);
 let input = [];
 
 function readLine(line) {
-  if (line !== 'n') {
-    line = line.toString().split(' ').map(num => parseInt(num));
-    input.push(line);
-  }
+	if (line !== 'n') {
+		line = line
+			.toString()
+			.split(' ')
+			.map(num => parseInt(num));
+		input.push(line);
+	}
 
-  if (input.length === 2) {
-    let arraySize = input[0][0];
-    let sortedArr = input[0].slice(1);
-    let keyArr = input[1].slice(1);
+	if (input.length === 2) {
+		let arraySize = input[0][0];
+		let sortedArr = input[0].slice(1);
+		let keyArr = input[1].slice(1);
 
-    let outputs = searchKeyIndex(arraySize, sortedArr, keyArr);
+		let outputs = searchKeyIndex(arraySize, sortedArr, keyArr);
 
-    outputs.forEach(output => process.stdout.write(`${output} `));
-    // console.log(searchKeyIndex(arraySize, sortedArr, keyArr));
-    // searchKeyIndex(arraySize, sortedArr, keyArr);
-    process.exit();
-  }
+		outputs.forEach(output => process.stdout.write(`${output} `));
+		// console.log(searchKeyIndex(arraySize, sortedArr, keyArr));
+		// searchKeyIndex(arraySize, sortedArr, keyArr);
+		process.exit();
+	}
 }
 
 function searchKeyIndex(arraySize, sortedArr, keyArr) {
-  let keyIndexArr = [];
-  let keyIndex;
-  let low = 0;
-  let high = arraySize - 1;
+	let keyIndexArr = [];
+	let keyIndex;
+	let low = 0;
+	let high = arraySize - 1;
 
-  keyArr.forEach(key => {
-    keyIndex = binarySearch(sortedArr, low, high, key);
-    keyIndexArr.push(parseInt(keyIndex));
-  })
+	keyArr.forEach(key => {
+		keyIndex = binarySearch(sortedArr, low, high, key);
+		keyIndexArr.push(parseInt(keyIndex));
+	});
 
-  // keyArr.forEach(key => {
-  //   keyIndex = binarySearch(sortedArr, low, high, key);
-  //   process.stdout.write(keyIndex + ' ');
-  // })
+	// keyArr.forEach(key => {
+	//   keyIndex = binarySearch(sortedArr, low, high, key);
+	//   process.stdout.write(keyIndex + ' ');
+	// })
 
-  return keyIndexArr;
+	return keyIndexArr;
 }
 
 function binarySearch(sortedArr, low, high, key) {
-  // if (key === sortedArr[low]) return low;
-  // if (key === sortedArr[high]) return high;
+	// if (key === sortedArr[low]) return low;
+	// if (key === sortedArr[high]) return high;
 
-  let mid;
+	let mid;
 
-  if (high - low < 0) return -1;
-  mid = low + Math.floor((high - low) / 2);
+	if (high - low < 0) return -1;
+	mid = low + Math.floor((high - low) / 2);
 
-  if (key === sortedArr[mid]) return mid;
-  if (key < sortedArr[mid]) return binarySearch(sortedArr, low, mid - 1, key);
-  if (key > sortedArr[mid]) return binarySearch(sortedArr, mid + 1, high, key);
+	if (key === sortedArr[mid]) return mid;
+	if (key < sortedArr[mid]) return binarySearch(sortedArr, low, mid - 1, key);
+	if (key > sortedArr[mid]) return binarySearch(sortedArr, mid + 1, high, key);
 }
 
 module.exports = {
-  binarySearch,
-  searchKeyIndex,
-}
+	binarySearch,
+	searchKeyIndex,
+};
