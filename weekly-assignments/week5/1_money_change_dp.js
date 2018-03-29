@@ -8,32 +8,35 @@ const rl = readline.createInterface({
 
 rl.on('line', readLine);
 
-let input = [];
-
 function readLine(line) {
-	if (line !== 'n') {
-		line = line.toString().split(' ');
-		input.push(line);
-	}
-
-	if (input.length === 1) {
-    let num = input[0];
-
-		console.log(moneyChange(num));
+	if (line !== '\n') {
+		let money = parseInt(line);
+		console.log(moneyChange(money));
 		process.exit();
 	}
 }
 
-const moneyChange = (num) => {
-  let minNumCoins = 0;
-  let denomination = [1, 3, 4];
+const moneyChange = money => {
+	let minCoins = [0];
+	let coins = [1, 3, 4];
 
-  // loop through the money using lowest denomination
-  // if counter = demoniation[i + 1], then counter = demoniation[i+11 - 1,
-  for (let i = 0; i < num; i++) {
-    for (let j = 0; j < denomination.length - 1; j++) {
-      minNumCoins++;
+	// loop through the money using lowest denomination
+	// if counter = demoniation[i + 1], then counter = demoniation[i+11 - 1,
+	for (let amount = 1; amount <= money; amount++) {
+		// what is this Infinity thing in the slide?
+		minCoins[amount] = Infinity;
+		coins.forEach(coin => {
+			let coinCount = 1;
+			if (amount >= coin) {
+				coinCount += minCoins[amount - coin];
+				if (coinCount < minCoins[amount]) minCoins[amount] = coinCount;
+			}
+		});
+	}
+	return minCoins[money];
+};
 
-    }
-  }
-}
+//perhaps start using variable name from the slide?
+//http://www.columbia.edu/~cs2035/courses/csor4231.F07/dynamic.pdf
+//https://www.youtube.com/watch?v=sn0DWI-JdNA
+//https://www.quora.com/What-is-an-easy-way-to-understand-the-coin-change-problem-in-dynamic-programming
