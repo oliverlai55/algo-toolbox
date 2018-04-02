@@ -45,3 +45,4 @@ function editDistance(str1, str2) {
 	}
 	return matrix[length1][length2];
 }
+
