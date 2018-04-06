@@ -2,8 +2,8 @@ const readline = require('readline');
 process.stdin.setEncoding('utf8');
 
 const rl = readline.createInterface({
-  input: process.stdin,
-  terminal: false,
+	input: process.stdin,
+	terminal: false,
 });
 
 rl.on('line', readLine);
@@ -11,51 +11,57 @@ rl.on('line', readLine);
 let input = [];
 
 function readLine(line) {
-  if (line !== '\n') {
-    line = line.toString().split(' ');
-    input.push(line);
-  }
+	if (line !== '\n') {
+		line = line.toString().split(' ');
+		input.push(line);
+	}
 
-  if (input.length === 2) {
-    let bagWeightCap = input[0][0];
-    let bagItemCap = input[0][1];
-    let itemWeightArr = input[1];
-    knapsack(bagWeightCap, bagItemCap, itemWeightArr);
-    process.exit();
-  }
+	if (input.length === 2) {
+		let bagWeightCap = input[0][0];
+		let bagItemCap = input[0][1];
+		let itemWeightArr = input[1];
+		console.log(knapsack(bagWeightCap, bagItemCap, itemWeightArr));
+		process.exit();
+	}
 }
-
-let totalWeight = 0;
-let itemsInBag = [];
 
 const knapsack = (bagWeightCap, bagItemCap, itemWeightArr) => {
-  for (let i = 0; i < itemWeightArr.length; i++) {
-    if (itemWeightArr[i] < bagWeightCap) {
-      bagWeightCap -= itemWeightArr[i];
-      itemsInBag.push(itemWeightArr[i]);
-      totalWeight += itemWeightArr[i];
-    }
+	let goldMatrix = [];
+	let val;
+	let i;
 
-    if (itemWeightArr[i] > bagWeightCap) {
-      for (let j = 0; j < itemsInBag; j++) {
+	for (i = 0; i < bagItemCap; i++) {
+		goldMatrix.push([]);
 
-      }
-    }
-  }
-}
+		for (let w = 0; w < bagWeightCap; w++) {
+			if (i === 0 || w === 0) {
+				goldMatrix[i][w] = 0;
+			} else {
+				goldMatrix[i][w] = goldMatrix[i - 1][w];
+				if (itemWeightArr[w] <= bagWeightCap) {
+					val = goldMatrix[i - 1][bagWeightCap - w] + itemWeightArr[w];
+					if (goldMatrix[i][w] < val) {
+						goldMatrix[i][w] = val;
+					}
+				}
+			}
+		}
+	}
+	return goldMatrix[i][w];
+};
 
-const memoize(fn) {
-  const cache = {};
-  return (...args) => {
-    if (cache[args]) {
-      return cache[args];
-    }
-    const result = fn.apply(this, args);
-    cache[args] = result;
-
-    return result;
-  }
-}
+// const memoize(fn) {
+//   const cache = {};
+//   return (...args) => {
+//     if (cache[args]) {
+//       return cache[args];
+//     }
+//     const result = fn.apply(this, args);
+//     cache[args] = result;
+//
+//     return result;
+//   }
+// }
 
 // use memoization
 // ask bryan why if val > value(w) value(w) = val;?
