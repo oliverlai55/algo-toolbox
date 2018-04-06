@@ -2,15 +2,15 @@ const readline = require('readline');
 process.stdin.setEncoding('utf8');
 
 const rl = readline.createInterface({
-	input: process.stdin,
-});
+  input: process.stdin
+})
 
 let input = [];
 
 rl.on("line", data => {
   input.push(data.toString().split(' ').map(num => parseInt(num)));
 
-	if (input.length === 2) {
+  if (input.length === 2) {
     let capacity = input[0][0];
     let weights = input[1];
 
@@ -41,25 +41,3 @@ const maxGold = (capacity, weights) => {
   return goldMatrix[i-1][capacity]
 
 }
-
-// const memoize(fn) {
-//   const cache = {};
-//   return (...args) => {
-//     if (cache[args]) {
-//       return cache[args];
-//     }
-//     const result = fn.apply(this, args);
-//     cache[args] = result;
-//
-//     return result;
-//   }
-// }
-
-// use memoization
-// ask bryan why if val > value(w) value(w) = val;?
-// What is val exactly?
-
-// loop through first time, if it fits, put in bag
-// if it gets to an item that is larger weight than bag capacity,
-// compare the weight of that item with the weight of the items currently in bag, if its larger weight but still within bag capacity, swtich out the item??
-// compare the totalWeight of having one tiem vs another item,
